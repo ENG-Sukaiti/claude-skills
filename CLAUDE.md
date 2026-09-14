@@ -1,7 +1,8 @@
 # Ibrahim — global instructions
 
-Synced across devices from `~/gSync/.claude-shared/CLAUDE.md`.
-Edit that file (or this symlink); changes reach every device via gSync.
+Version-controlled in [`ENG-Sukaiti/claude-skills`](https://github.com/ENG-Sukaiti/claude-skills).
+Edit this file (or the symlink at `~/.claude/CLAUDE.md`), then commit and push;
+other devices pick it up on `git pull`.
 
 ## Documenting work
 
