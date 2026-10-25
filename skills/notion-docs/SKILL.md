@@ -68,6 +68,29 @@ Profiles available: `hatif`, `uni`, `personal`, `omarchy`.
 - **Expect custom extras.** He'll ask for per-item additions — an HTML page
   describing the feature, a diagram, a code block, API samples. Add them
   *after* the profile's required sections, which always stay and stay in order.
+- **Introduce everything new before you lean on it.** Ibrahim reads the page
+  to find out what was done; he did not watch it happen. Anything the work
+  created or changed — a table, a column, an index, a trigger, an endpoint, a
+  background job, a setting, a file, a coined term like "cursor" or
+  "horizon" — is explained the first time the page mentions it: **what it is,
+  where it lives, what is in it, who writes it, who reads it, and why it
+  exists.** Never drop a name into a sentence as if he already knows it
+  ("triggers write a row to `SyncChanges`"). If a sentence needs a name before
+  its introduction, move the introduction above it or explain it right there.
+  Concretely:
+  - **A new table** gets its own short section: a table of its columns (name,
+    type, what it holds), how rows get in, what reads them, how long they
+    live, and the indexes added.
+  - **A new endpoint** gets its route, inputs, what comes back, and when a
+    client calls it.
+  - **A new job, trigger or setting** gets when it runs, what it touches, and
+    what breaks without it.
+  - **A term the work introduced** gets one plain sentence the first time it
+    appears, before any sentence that depends on it.
+
+  He asked for this on 25 Oct 2026: "you created a new table and expected me
+  to just know it's there? … that's the point of notion, is to tell me what
+  you did like this new added table exactly."
 
 ## Page layout — a root with sub-pages
 
