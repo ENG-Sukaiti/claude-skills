@@ -4,49 +4,59 @@
 
 ```
 Dashboard → Work → Hatif → Features → <Feature Name>
-                                       └── Bugs   (sub-page)
+                                       ├── 🧭 Plan
+                                       ├── 🛠️ Implementation
+                                       ├── 🐛 Bugs
+                                       └── 🗂️ History
 ```
 
 Resolve `Features` by searching Notion under the Hatif page. Cache the id as
-`hatif_features` in `notion-ids.json`.
+`hatif_features` in `notion-ids.json`, and cache each feature root and its
+sub-pages too (`hatif_<feature>`, `hatif_<feature>_plan`, …).
 
 ## Page title
 
 Exactly the feature name. No prefixes, no dates, no ticket numbers unless asked.
 
-## Required sections — in this order, every time
+## Layout — a parent page with sub-pages
+
+Every feature is a parent page (see *Page layout* in `SKILL.md`, changed on
+28 Sep 2026). Nothing long lives on the root.
+
+**Feature root, in this order:**
 
 1. **Description** — what the feature does, why it was needed, who it's for.
-   Two to five sentences. Written so he can read it in six months and recover
-   the context — not a restatement of the title.
-
-2. **Approach** — the design decision actually taken, and briefly what was
-   rejected and why. The highest-value section. If the approach changed
-   mid-implementation, record the change, not just where it landed.
-
-3. **To-do** — a Notion to-do checklist tracking where the work stands, so he
-   can resume after a break. Keep it current: tick items as they land, add
-   newly discovered work. This is the resume point.
-
-4. **Repos & branches** — the most important section. Every repo the feature
-   touched and the branch created in each:
+   Two to five sentences, written so he can recover the context in six months.
+2. **Status callout** — dated; shippable or not, and what blocks it; open PRs.
+3. **To-do** — open items only, as real to-do checkboxes. The resume point.
+   Finished items move to History.
+4. **Repos & branches** — every repo touched and the branch in each, from git,
+   never from memory. Active branches only; retired ones go to History.
 
    | Repo | Branch | Notes |
    |------|--------|-------|
    | Backend | `feat/xyz` | API + migration |
-   | voxa-dashboard | `feat/xyz-ui` | settings screen |
 
-   From git, never from memory. Three repos touched → three rows.
+5. **Sub-page links** — Plan, Implementation, Bugs, History, and any extras.
 
-5. **Files added** — every *new* file the feature introduced, with a one-line
-   purpose each. New files only; modified files are noise unless he asks.
-   `git -C <repo> status --porcelain` for uncommitted,
-   `git -C <repo> diff --name-status <base>...HEAD | grep '^A'` for committed.
+**🧭 Plan** — the approach actually taken, what was rejected and why, and the
+open design questions still blocking the work. The highest-value page. If the
+approach changed mid-way, record the change, not just where it landed.
 
-6. **Bugs** — a sub-page named `Bugs` under the feature page: a running list of
-   bugs in this feature. Each entry: what happens, how to reproduce, status
-   (open / fixed). Create the sub-page even when empty, so the first bug has
-   somewhere to go.
+**🛠️ Implementation** — what was built in each repo (endpoints, key classes),
+**files added** (new files only, one line each —
+`git -C <repo> diff --name-status <base>...HEAD | grep '^A'`, plus
+`git status --porcelain` for uncommitted), and open review findings.
+
+**🐛 Bugs** — created even when empty. Each bug is its own sub-page (see
+`SKILL.md`). Exception: a feature under a project root (e.g. *Desktop app*)
+uses that project's Bugs page.
+
+**🗂️ History** — finished to-dos, retired branches, earlier attempts.
+
+**Once a feature grows into a project** — several features, runbooks, reference
+material — restructure it to the project layout in `SKILL.md`. *Desktop app*
+is the worked example.
 
 ## Scope
 

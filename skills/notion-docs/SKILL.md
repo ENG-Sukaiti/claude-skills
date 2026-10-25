@@ -22,6 +22,7 @@ Match on git remote first (most reliable), then on path. First match wins.
 | git remote org is `Voxasa`, or path under `~/gSync/Dev/Hatif/` | `hatif` |
 | path under `~/gSync/Uni/`, or the work is coursework/a university project | `uni` |
 | git remote org is `ENG-Sukaiti`, or any other path under `~/gSync/Dev/` | `personal` |
+| desktop/Omarchy config under `~/.config/` (Hyprland, bar, Spicetify, pacman-hook patches) | `omarchy` |
 | nothing matches | **ask him** which it is, then add a row here |
 
 Resolve with real commands, not assumptions:
@@ -37,7 +38,7 @@ Read `profiles/<profile>.md` in this skill directory. It holds the Notion
 destination, the page-title convention, and the required sections for that
 context. **The profile is authoritative** — this file only routes.
 
-Profiles available: `hatif`, `uni`, `personal`.
+Profiles available: `hatif`, `uni`, `personal`, `omarchy`.
 
 ## Universal rules — all profiles
 
@@ -67,6 +68,64 @@ Profiles available: `hatif`, `uni`, `personal`.
 - **Expect custom extras.** He'll ask for per-item additions — an HTML page
   describing the feature, a diagram, a code block, API samples. Add them
   *after* the profile's required sections, which always stay and stay in order.
+
+## Page layout — a root with sub-pages
+
+Ibrahim asked for this on 24 Sep 2026, after the Desktop app page grew into one
+long scroll: **anything bigger than a single feature is a root page with
+sub-pages, not one long page.** The root answers "what is live, what is open,
+where is the rest" and nothing else; everything else is one click down.
+
+```
+<Project>                     ← root: status, open items, active branches, index
+├── 🐛 Bugs                   ← index grouped by status; ONE SUB-PAGE PER BUG
+│   ├── #1 <what breaks>
+│   └── #2 …
+├── ✨ Features               ← index: in progress / shipped; ONE SUB-PAGE PER FEATURE
+├── 🚢 Releasing and operations   ← runbooks, deploy, one-time setup
+├── 📚 How it works           ← the jargon: architecture, vocabulary, per-PR write-ups, file maps
+└── 🗂️ History                ← finished checklists, retired branches, old attempts
+```
+
+**The root page, in order:** two or three sentences on what it is · one status
+callout (live versions, open PRs, dated) · open bugs as links · features in
+progress as links · the to-do with **open items only** · active branches only ·
+the index of sub-pages. Nothing on the root is finished work or explanation —
+done items go to History, jargon and architecture go to How it works. If the
+root needs scrolling to reach the bugs, it has too much on it.
+
+**Each bug is its own page**, titled `#N <what the user sees>` with an icon
+for that bug. First line is `**Status:** …` using one key everywhere —
+🔴 open · 🔵 fix in an open PR · 🧪 merged to the testing branch, awaiting a
+test · ✅ in production. Then `What happens`, `Reproduce`, `Fix`. Numbers never
+get reused; other pages refer to bugs by number. The Bugs index groups the
+links by status, open first, and a bug moves down as it gets closer to
+production.
+
+**Each feature is a parent page with sub-pages**, never one long page. Ibrahim
+asked for this on 28 Sep 2026. The feature root holds the description, a status
+callout, the open to-do and the active branches, then links to its sub-pages.
+The detail lives one click down:
+
+```
+<Feature>                     ← root: description, status, open to-do, branches, index
+├── 🧭 Plan                   ← approach, rejected options, open design questions
+├── 🛠️ Implementation         ← what was built per repo, files added, review findings
+├── 🐛 Bugs                   ← one sub-page per bug
+└── 🗂️ History                ← done items, retired branches, old attempts
+```
+
+Plan, Implementation and Bugs are the minimum. Add more sub-pages when the
+feature needs them, such as a runbook, a walkthrough or API samples. The
+profile says what goes on each. A feature under a project root does **not** get
+its own Bugs sub-page. Its bugs go in the project's Bugs, so there is one place
+to look.
+
+**Reorganising never deletes.** Move existing pages with `notion-move-pages`
+so their links keep working, and only `replace_content` a page once every
+child it should keep is referenced in the new content. Re-verify statuses from
+git and `gh` while moving — a reorganisation is when stale "open" items get
+found.
 
 ## Visual formatting — every element must earn its place
 
