@@ -11,7 +11,7 @@ belong, show Ibrahim the candidates, and ask. **Then write the answer into this
 file** and cache the id in `notion-ids.json`.
 
 Covers repos with an `ENG-Sukaiti` remote (e.g. `spotify-music-categorizor`)
-and other project directories under `~/gSync/Dev/` outside Hatif.
+and other project directories under `<vault>/Dev/` outside Hatif.
 
 ## Page title
 

@@ -2,27 +2,52 @@
 
 ## Destination
 
-Under `Dashboard` there is a `## 🎓 Uni` section holding two pages:
+Under `Dashboard` there is a `## 🎓 Uni` section holding one hub page, `🎓 Uni`
+(cached `uni_hub`). Everything university lives inside it:
 
 ```
-Dashboard → 🎓 Uni → 🎓 Sophomore Year → Level 5 / Level 6 (KFUPM) → <Course or Assignment>
-Dashboard → 🎓 Uni → 🟦 GDG → <Area or Feature>
+Dashboard → 🎓 Uni → 📚 Years  → 📘 Sophomore Year → Level 5 / Level 6 (KFUPM) → <Course> → Lab → Lab N
+                                → 📗 Junior Year    → 7️⃣ Level 7 (semester dashboard)
+                                                       └── 🗄️ Behind the scenes → Courses · Tasks · Exams · Notes · Study log
+                   → 🤝 Clubs  → 🟦 GDG → <Area or Feature>
 ```
 
-- **Coursework** goes under the current level page inside `Sophomore Year`.
-  Cached as `uni_root` (= Sophomore Year) in `notion-ids.json`.
+- **Coursework** goes under the current year page, then the current level.
+  Year pages: `uni_sophomore`, `uni_junior` (cached in `notion-ids.json`).
+  A new academic year gets a new year page under `## 📚 Years` on the hub,
+  with a `📙`-style book icon. Past years are left as they are.
+- **The current level page is a semester dashboard, not a list of sub-pages.**
+  Since 2026-10-26, `uni_level7` holds: a summary callout, course links,
+  heads-up notes, a colour-coded weekly timetable, then linked views of five
+  databases. The databases themselves live in its `🗄️ Behind the scenes`
+  sub-page. Never add plain sub-pages to the level page; add rows instead:
+  | Database | Cached as | A row is |
+  |---|---|---|
+  | `Courses` | `uni_l7_courses` | one course. The course page *is* the course notebook (Page tab); its Tasks/Exams/Notes/Study tabs fill from relations. Rollups give Progress, Grade so far, Open tasks, Exams left, Study hours. |
+  | `Tasks` | `uni_l7_tasks` | an assignment, lab report, quiz, study to-do. Set `Course`, `Due`, `Type`; `Weight` + `Score` feed the grade. |
+  | `Exams` | `uni_l7_exams` | a midterm, final or quiz. `When` is a datetime in Asia/Riyadh. |
+  | `Notes` | `uni_l7_notes` | lecture/lab notes, summaries, cheat sheets. |
+  | `Study log` | `uni_l7_study` | one study session, in minutes. |
+  Coursework write-ups (an assignment or lab) become a `Notes` or `Tasks` row
+  linked to its course, with the required sections below as the row's body.
+  Existing per-course sub-pages such as the CS341 `Lab` page stay inside the
+  course page. Course numbers follow the uni portal: الرسم بالحاسب (graphics,
+  OpenGL labs) is **CS341**, not CS342 — CS342 is Visual Programming.
+  When a new semester starts, build the same dashboard for it rather than a
+  bare level page. Colours avoid red-vs-green meaning (he is colourblind).
 - **GDG club work** — the scores platform, its three repos, anything for the
-  club rather than for a grade — goes under `GDG`, cached as `gdg`.
-  Confirmed 2026-09-13.
+  club rather than for a grade — goes under `GDG`, cached as `gdg`, which sits
+  under `## 🤝 Clubs` on the hub. Confirmed 2026-09-13, moved 2026-10-14.
 
 `GDG` is a **hub page and must stay one** — never add a page directly to it.
-It has three sections, and everything goes in one of them:
+It has four sections, and everything goes in one of them:
 
 | Sub-hub | Cached as | Holds |
 |---|---|---|
 | `🏛️ Architecture` | `gdg_architecture` | How the system works *today*. Reference docs kept current with `main`. |
 | `✨ Features` | `gdg_features` | One page per feature — proposed, in progress or shipped, incl. the thinking and the open questions. |
 | `🛠️ Improvements` | `gdg_improvements` | One page per improvement — performance, refactors, UX polish, tech-debt paydown. Making an existing thing better, not a new feature. Added 2026-09-16. |
+| `🐛 Incidents` | `gdg_incidents` | One page per production incident — what the user saw, the exact log line and digest/request id, root cause, fix (PR), and how to find it faster next time. Title by symptom, not by fix. Added 2026-09-21. |
 
 If a new GDG page is neither, ask him where it should live and add a row here.
 Confirmed 2026-09-14.
@@ -36,8 +61,8 @@ A new admin feature gets a walkthrough page there; a new shared service gets a
 branch page. He asked for these to stay simple — no "you already know the
 system" tone. Added 2026-09-16.
 
-Local material lives under `~/gSync/Uni/` (`Freshmen`, `Sophomore`, `PYP`);
-GDG code lives under `~/gSync/Dev/GDG/`.
+Local material lives under `<vault>/Uni/` (`Freshmen`, `Sophomore`, `PYP`);
+GDG code lives under `<vault>/Dev/GDG/`.
 
 ## Page title
 

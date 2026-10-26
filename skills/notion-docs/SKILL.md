@@ -19,11 +19,16 @@ Match on git remote first (most reliable), then on path. First match wins.
 
 | Signal | Profile |
 |---|---|
-| git remote org is `Voxasa`, or path under `~/gSync/Dev/Hatif/` | `hatif` |
-| path under `~/gSync/Uni/`, or the work is coursework/a university project | `uni` |
-| git remote org is `ENG-Sukaiti`, or any other path under `~/gSync/Dev/` | `personal` |
+| git remote org is `Voxasa`, or path under `<vault>/Dev/Hatif/` | `hatif` |
+| git remote org is `Google-Developer-Group-Qassim-Unversity`, or path under `<vault>/Dev/GDG/` | `uni` (GDG hub) |
+| path under `<vault>/Uni/`, or the work is coursework/a university project | `uni` |
+| git remote org is `ENG-Sukaiti`, or any other path under `<vault>/Dev/` | `personal` |
 | desktop/Omarchy config under `~/.config/` (Hyprland, bar, Spicetify, pacman-hook patches) | `omarchy` |
 | nothing matches | **ask him** which it is, then add a row here |
+
+`<vault>` is the synced root and it differs per device — `~/gSync/` on some,
+`…/Google Drive…/The Vault/` (mirrored at `~/desktop/The Vault`) on the
+MacBook. Match on the path *suffix*, never on the root.
 
 Resolve with real commands, not assumptions:
 
@@ -196,7 +201,10 @@ ask for more.
 ## Page id caching
 
 Resolve destination pages by **searching** Notion, not by hardcoded URLs.
-Cache what you find in `~/gSync/.claude-shared/notion-ids.json`:
+Cache what you find in `notion-ids.json` at the root of the `claude-skills`
+checkout — two directories up from this skill (`../../notion-ids.json`, resolve
+the symlink first). It is gitignored, so it is per-device and rebuilt by
+searching:
 
 ```json
 { "hatif_features": "<page-id>", "uni_root": "<page-id>" }

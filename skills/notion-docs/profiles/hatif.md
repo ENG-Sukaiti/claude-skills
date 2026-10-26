@@ -60,7 +60,7 @@ is the worked example.
 
 ## Scope
 
-Repos under `~/gSync/Dev/Hatif/` — currently `Backend`, `voxa-dashboard`,
+Repos under `<vault>/Dev/Hatif/` — currently `Backend`, `voxa-dashboard`,
 `voxa-mobile` — and any repo with a `Voxasa` remote. This list will grow; any
 new repo appearing there is in scope automatically. Never require this list to
 be updated before documenting a new repo.
