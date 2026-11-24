@@ -1,0 +1,58 @@
+# study-prep config. Put it at the root of the folder you keep your courses
+# in (one subfolder per course), or at ~/.config/study-prep/study-prep.toml.
+# Only university and [blackboard] url are needed; everything else is optional.
+# No passwords in here: logins are saved separately in ~/.config/study-prep/.
+
+university = "Example University"
+term = "Fall 2026"                # what your university calls this semester
+languages = ["en", "ar"]          # languages your student groups write in
+
+# Anything an agent should know about how your university works: how terms
+# are numbered, how sections work, where leaks usually come from.
+notes = """
+"""
+
+[blackboard]
+url = "https://blackboard.example.edu"
+# How you sign in:
+#   "browser"  - through a university portal or single sign-on, with or
+#                without phone approval (Microsoft, Nafath, SMS code...).
+#                A browser window opens and you log in as usual.
+#   "password" - Blackboard's own username/password page. Put
+#                BLACKBOARD_USER and BLACKBOARD_PASSWORD in
+#                ~/.config/study-prep/blackboard.env (chmod 600) yourself,
+#                and the session renews by itself.
+login = "browser"
+
+[telegram]
+# General groups/channels for your level or major: @username, t.me link, or
+# numeric id. Course-specific ones get found on each run.
+groups = []
+join = true                       # may the agent join groups to read them? It never posts.
+
+[whatsapp]
+url = "http://127.0.0.1:8765/mcp" # only used by wa.py; MCP clients have their own setting
+groups = []                       # level/major groups, by name
+
+# Shared drives of past exams (rclone). Repeat the block for more.
+# [[drive]]
+# remote = "gdrive:"
+# folder_id = "1AbC..."
+# note = "Student drive, all levels; past exams in each course's 'Past Exams' folder"
+
+[folders]
+# Inside each course folder. "" means the course folder itself.
+lectures = ""
+past_exams = "Past Exams"
+summaries = "Summaries"
+ocr = "OCR"                       # extracted text and transcripts
+notes = "Notes"                   # the study-prep reports
+
+[search]
+terms = []                        # your local slang for past exams, scope, etc.
+
+# Optional, per course: other names it goes by, your section, your lecturer.
+# [courses.CS315]
+# aliases = ["Algorithms", "Design and Analysis of Algorithms"]
+# section = "1234"
+# lecturer = "Dr. Name"

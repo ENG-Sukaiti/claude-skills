@@ -1,0 +1,37 @@
+#!/bin/sh
+# Run one of this skill's scripts, installing uv first if it's missing.
+#
+#   sh <skill>/scripts/run tg.py status
+#   sh <skill>/scripts/run bb.py courses
+#
+# uv supplies a recent Python and each script's packages on first use, so
+# nothing else needs installing. Works on macOS and Linux. uv's own installer
+# needs no admin rights: it puts uv in ~/.local/bin.
+set -e
+
+here=$(cd "$(dirname "$0")" && pwd)
+script=$1
+[ -n "$script" ] || { echo "usage: sh $0 <script.py> [args...]" >&2; exit 2; }
+shift
+[ -f "$here/$script" ] || { echo "no such script: $here/$script" >&2; exit 2; }
+
+find_uv() {
+  command -v uv 2>/dev/null && return
+  for p in "$HOME/.local/bin/uv" "$HOME/.cargo/bin/uv" /opt/homebrew/bin/uv /usr/local/bin/uv; do
+    [ -x "$p" ] && { echo "$p"; return; }
+  done
+}
+
+uv=$(find_uv || true)
+if [ -z "$uv" ]; then
+  echo "study-prep: installing uv (one time, about 30 seconds; it runs the Python scripts)..." >&2
+  if command -v curl >/dev/null 2>&1; then
+    curl -LsSf https://astral.sh/uv/install.sh | sh >&2
+  else
+    wget -qO- https://astral.sh/uv/install.sh | sh >&2
+  fi
+  uv=$(find_uv || true)
+  [ -n "$uv" ] || { echo "study-prep: uv didn't install; see https://docs.astral.sh/uv/getting-started/installation/" >&2; exit 1; }
+fi
+
+exec "$uv" run -q --script "$here/$script" "$@"

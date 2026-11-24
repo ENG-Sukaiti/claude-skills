@@ -10,6 +10,7 @@ CLAUDE.md              # global instructions, symlinked to ~/.claude/CLAUDE.md
 bootstrap.sh           # per-device setup; idempotent, Linux + macOS
 skills/
   notion-docs/         # documents work into Notion (see its SKILL.md)
+  study-prep/          # uni study agent skill, generic, made to share (see its README.md)
 ```
 
 `bootstrap.sh` symlinks `CLAUDE.md` and **every** directory under `skills/`
@@ -48,6 +49,17 @@ changes land.
 Consequence: this directory now contains a `.git`, so the rclone job skips it
 (`--exclude-if-present=.git/HEAD`). GitHub carries it instead. That is the
 intended trade, and the same rule every other repo follows.
+
+## Sharing one skill
+
+Skills meant for other people (`study-prep`) are self-contained, so a friend
+installs one without the rest:
+
+```bash
+npx skills add ENG-Sukaiti/claude-skills@study-prep -g -y
+```
+
+or a sparse git clone of `skills/<name>`. The skill's own README has both.
 
 ## Related
 
